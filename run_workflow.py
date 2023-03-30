@@ -14,8 +14,7 @@ async def main(input: SpeedTestResult):
     download_speed_list = []
     upload_speed_list = []
     iterations = 0
-
-    for i in range(100):
+    for i in range(10):
         result = await client.execute_workflow(
             SpeedTestWorkflow.run,
             SpeedTestResult(input.download_speed, input.upload_speed),
@@ -23,8 +22,8 @@ async def main(input: SpeedTestResult):
             task_queue="task-queue",
         )
 
-        download_speed_list.append(result["download_speed"])
-        upload_speed_list.append(result["upload_speed"])
+        download_speed_list.append(result.download_speed)
+        upload_speed_list.append(result.upload_speed)
         iterations += 1
 
     await graph_results(download_speed_list, upload_speed_list)
